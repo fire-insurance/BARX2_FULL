@@ -1,52 +1,52 @@
-let goods
+let users
 
-export default class GoodsDAO {
+export default class UsersDAO {
     static async injectDB(conn) {
-        if (goods) {
+        if (users) {
             return
         }
         try {
-            goods = await conn.db(process.env.RESTREVIEWS_NS).collection("goods")
+            users = await conn.db(process.env.RESTREVIEWS_NS).collection("users")
         } catch (error) {
             console.error(`Невозможно получить коллекцию в goodsDAO: ${error}`)
         }
     }
 
-    static async getGoods({
+    static async getUsers({
         filters = null,
         page = 0,
-        goodsPerPage = 20
+        usersPerPage = 20
     } = {}) {
         let query
         if (filters) {
             if ("name" in filters) {
                 query = { $text: { $search: filters["name"] } }
-            } else if ("type" in filters) {
-                query = { "type": { $eq: filters["type"] } }
+            } else if ("rights" in filters) {
+                query = { "rights": { $eq: filters["rights"] } }
             }
         }
 
         let cursor
 
         try {
-            cursor = await goods
+            cursor = await users
                 .find(query)
         } catch (error) {
             console.error(`Невозможно выполнить запрос: ${error}`)
-            return { goodsList: [], totalGoodsNumber: 0 }
+            return { usersList: [], totalUsersNumber: 0 }
         }
 
-        const displayCursor = cursor.limit(goodsPerPage).skip(goodsPerPage * page)
+        const displayCursor = cursor.limit(usersPerPage).skip(usersPerPage * page)
 
         try {
-            const goodsList = await displayCursor.toArray()
-            const totalGoodsNumber = await goods.countDocuments(query)
+            const usersList = await displayCursor.toArray()
+            const totalUsersNumber = await users.countDocuments(query)
 
-            return { goodsList, totalGoodsNumber }
+            return { usersList, totalUsersNumber }
         } catch (error) {
             console.error(`Невозможно получить массив из запроса или подсчитать число документов: ${error}`)
         
-            return { goodsList: [], totalGoodsNumber: 0 }
+            return { usersList: [], totalUsersNumber: 0 }
         }
     }
 }

@@ -2,6 +2,7 @@ import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import GoodsDAO from "./dao/goodsDAO.js"
+import UsersDAO from "./dao/usersDAO.js"
 
 // Получаем .env переменные
 dotenv.config()
@@ -24,6 +25,7 @@ MongoClient.connect(
     })
     .then(async client => {
         await GoodsDAO.injectDB(client)
+        await UsersDAO.injectDB(client)
         app.listen(port,() => {
             console.log(`listening on port ${port}`)
         })

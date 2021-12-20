@@ -1,7 +1,7 @@
 import GoodsDAO from "../dao/goodsDAO.js"
 
 export default class GoodsController {
-    static async apiGetGoods(req, res, next) {
+    static async apiGetGoods(req, res) {
         const goodsPerPage = req.query.goodsPerPage ? parseInt(req.query.goodsPerPage, 10) : 20
         const page = req.query.page ? parseInt(req.query.page, 10) : 0
 

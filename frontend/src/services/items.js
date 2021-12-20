@@ -2,27 +2,27 @@ import http from "../http-common";
 
 class ItemDataService{
     static findAll(page = 0){
-        return http.get(`?page=${[[page]]}`);
+        return http.get(`/goods?page=${[[page]]}`);
     }
     
     static getById(id){
-        return http.get(`/id/${id}`);
+        return http.get(`/goods/id/${id}`);
     }
 
-    static  find(query, by = "name", page=0){
-        return http.get(`?${by}=${query}&page=${page}`)
+    static find(query, by = "name", page=0){
+        return http.get(`/goods?${by}=${query}&page=${page}`)
     }
 
-    static  createItem(data){
-        return http.put("/item", data)
+    static createItem(data){
+        return http.put("/goods/item", data)
     }
     
     static updateItem(data){
-        return http.put("/item", data)
+        return http.put("/goods/item", data)
     }
 
-    static deleteReview(id){
-        return http.delete(`/item?id=${id}`);
+    static deleteItem(id){
+        return http.delete(`/goods/item?id=${id}`);
     }
 }
 

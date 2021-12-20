@@ -11,7 +11,7 @@ import GoodsList from "./components/goods-list";
 const App = () =>{
   let routes = useRoutes([
     {path: "/", element: <MainPage />},
-    {path:"/catalog", element:<GoodsList />}
+    {path: `/catalog/:type`, element:<GoodsList />}
   ])
   return routes
 }

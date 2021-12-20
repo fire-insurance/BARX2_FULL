@@ -23,27 +23,27 @@ function MainPage() {
         <div className="Wrapper">
           <section className="main__GoodsTypes">
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/Shakers'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={BostonShaker} title={'Шейкеры'} description={'Бостон, Цейлон, Коблер'}></CardTypes>
             </Link>
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/Jiggers'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={Jigger} title={'Джиггеры'} description={'Металл, Стекло, Пластик'}></CardTypes>
             </Link>
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/Syrups'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={Syrup} title={'Сиропы'} description={'Monin, Barline, Tempo'}></CardTypes>
             </Link>
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/Spoons'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={Spoon} title={'Ложки'} description={'Нарезные, С пяткой, С вилами'}></CardTypes>
             </Link>
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/Streiners'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={Streiner} title={'Стрейнеры'} description={'Съемные, несъемные'}></CardTypes>
             </Link>
 
-            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+            <Link to={'/catalog/All'} className="main__GoodsTypes__Link">
               <CardTypes imgSrc={Miscellanious} title={'Каталог'} description={'Все товары'}></CardTypes>
             </Link>
           </section>
