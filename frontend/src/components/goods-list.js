@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from "react";
-import ItemDataService from "../services/items"
-import {Link} from 'react-router-dom'
-
+import React, { useState, useEffect } from "react";
+import ItemDataService from "../services/items.js"
+import { Link } from 'react-router-dom'
 import Header from '../components/header';
+import Footer from "./footer.js";
+import "../css/goods.css"
+import whiteHeartPic from '../Icons/white_heart.png'
 
 const GoodsList = (props) => {
 
@@ -10,16 +12,16 @@ const GoodsList = (props) => {
   const [searchName, setSearchName] = useState('')
   const [searchType, setSearchType] = useState('')
 
-  useEffect(()=>{
+  useEffect(() => {
     getGoods()
   })
 
-  const getGoods = () =>{
-    ItemDataService.getAll()
+  const getGoods = () => {
+    ItemDataService.findAll()
       .then(response => {
         setGoods(response.data.goods)
       })
-      .catch(error =>{
+      .catch(error => {
         console.error(error)
       })
   }
@@ -30,25 +32,52 @@ const GoodsList = (props) => {
 
   const search = (query, by) => {
     ItemDataService.find(query, by)
-    .then(response => {
-      setGoods(response.data.goods)
-    })
-    .catch(error => {
-      console.error(error)
-    })
+      .then(response => {
+        setGoods(response.data.goods)
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   const searchByName = () => {
     search(searchName, 'name')
   }
 
-  searchByType = () => {
-    search(seachType, 'type')
+  const searchByType = () => {
+    search(searchType, 'type')
   }
 
   return (
-    <div className="GoodsList">
+    <div className="AppContainer">
       <Header></Header>
+      <div className="main">
+        <div className="temp"></div>
+        <section className="catalog">
+          <article className="options">
+          </article>
+          <article className="Items">
+
+            {goods.map(item => {
+              return (
+                <div className="Item" key={item._id}>
+                  <img src={`Goods_Pics/${item.picture_URL}`} alt="" />
+                  <p className="Item__Price">{item.price}</p>
+                  <p className="Item__Description">{item.name}</p>
+                  <div className="Item__CartNHeart">
+                    <input className="Item__CartNHeart__MoveToCart" type="submit" value="В корзину" />
+                    <div className="Item__CartNHeart__MvToFavorites">
+                      <img src={whiteHeartPic} />
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </article>
+        </section>
+        <div className="temp"></div>
+      </div>
+      <Footer></Footer>
     </div>
   );
 }

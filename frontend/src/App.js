@@ -6,12 +6,12 @@ import {
 import React from "react"
 
 import MainPage from "./components/MainPage";
-// import GoodsList from "./components/goods-list";
+import GoodsList from "./components/goods-list";
 
 const App = () =>{
   let routes = useRoutes([
     {path: "/", element: <MainPage />},
-    // {path:"/catalog", element:<GoodsList />}
+    {path:"/catalog", element:<GoodsList />}
   ])
   return routes
 }

@@ -25,6 +25,11 @@ $SoftBlue: #007eff;
     src: url(../Fonts/Roboto-Bold.ttf);
 }
 
+.AppContainer {
+    height: 100vh;
+    display: grid;
+}
+
 p {
     font-family: "Roboto-Light";
     font-size: 18px;
@@ -42,6 +47,7 @@ p {
 .header {
     display: grid;
     width: 100%;
+    height: max-content;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     grid-template-columns: minmax(5px, 0.2fr) minmax(100px, 150px) minmax(80px, 1.4fr) minmax(100px, 1.1fr) minmax(
             5px,
@@ -118,11 +124,12 @@ p {
 }
 
 .main {
-    padding: 40px 0px 40px 0px;
+    padding: 40px 0px 100px 0px;
     background-color: rgb(240, 240, 240);
     display: grid;
     grid-template-columns: 0.08fr 1fr 0.08fr;
     place-items: center;
+
     &__GoodsTypes {
         height: 100%;
         width: 100%;
@@ -130,25 +137,22 @@ p {
         grid-template-columns: repeat(3, minmax(28vh, 28vw));
         grid-template-rows: repeat(2, minmax(28vh, 28vw));
         grid-gap: 40px;
-        &__Type {
-            display: flex;
-            flex-direction: column;
-            border-radius: 2em;
-            box-shadow: 0px 0px 20px rgb(216, 216, 216);
-            align-items: center;
-            padding: 20px 0px 0px 0px;
+        &__Link {
+            height: 100%;
             width: 100%;
-            gap: 10px;
-            &__Img {
-                height: 75%;
-                -webkit-user-drag: none;
-                user-select: none;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-            }
-            &__Title {
-                font-size: 1.4em;
+            &__Type {
+                height: 100%;
+                &__Img {
+                    height: 75%;
+                    -webkit-user-drag: none;
+                    user-select: none;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                    -ms-user-select: none;
+                }
+                &__Title {
+                    font-size: 1.4em;
+                }
             }
         }
     }
@@ -156,12 +160,12 @@ p {
 
 .footer {
     display: flex;
-
-    margin-top: 2em;
+    width: 100%;
     height: auto;
-    padding: 50px;
+    padding: 30px;
     background-color: black;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    align-items: center;
 
     .SocialNetworks {
         display: flex;
@@ -169,6 +173,8 @@ p {
         .SocialWrapper {
             width: 100%;
             border-radius: 50px;
+            transition: 400ms;
+
             &:hover {
                 cursor: pointer;
                 background-color: rgba(255, 255, 255, 0.4);
@@ -188,6 +194,8 @@ p {
         column-gap: 1em;
         font-size: 2em;
         p {
+            transition: 400ms;
+
             width: 40cx;
             &:hover {
                 cursor: pointer;

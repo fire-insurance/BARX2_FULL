@@ -1,0 +1,131 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Roboto-Light;
+  src: url(../Fonts/Roboto-Light.ttf);
+}
+
+p {
+  font-family: Roboto-Light;
+}
+
+.catalog {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  background-color: rgba(0, 0, 0, 0.048);
+  padding: 1px;
+  gap: 1px;
+  width: 100%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.Item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px;
+  width: calc(100%-1px);
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: white;
+}
+
+.Item img {
+  height: 200px;
+}
+
+.Item__Price {
+  color: #ff3d3d;
+  font-size: 1.7em;
+  margin-top: 0.6em;
+}
+
+.Item__Price::after {
+  content: " ₽";
+}
+
+.Item__Description {
+  font-size: 1.5em;
+  width: 12em;
+}
+
+.Item__CartNHeart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 0.25em;
+          column-gap: 0.25em;
+  width: auto;
+}
+
+.Item__CartNHeart__MoveToCart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.25em;
+  background-color: #007eff;
+  width: 7.5em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 0.6em;
+  border-top-left-radius: 0.6em;
+  border-bottom-left-radius: 0.6em;
+  color: white;
+  outline: none;
+  border: none;
+  height: 2em;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.Item__CartNHeart__MoveToCart:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+.Item__CartNHeart__MvToFavorites {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 20px;
+  background-color: #007eff;
+  width: 2em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 0.6em;
+  border-top-right-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+  color: white;
+  outline: none;
+  border: none;
+  height: 2em;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.Item__CartNHeart__MvToFavorites img {
+  height: 1.25em;
+  width: 1.25em;
+  margin: 7px;
+}
+
+.Item__CartNHeart__MvToFavorites:hover {
+  -webkit-transform: scaleX(1.15) scaleY(1.1);
+          transform: scaleX(1.15) scaleY(1.1);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  cursor: pointer;
+}
+
+.footer {
+  justify-self: flex-end;
+  width: 100%;
+}
+/*# sourceMappingURL=goods.css.map */

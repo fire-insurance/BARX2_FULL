@@ -16,24 +16,42 @@ import "../css/MainPage.css"
 function MainPage() {
 
   return (
-    <div>
+    <div className="AppContainer">
       <Header></Header>
       <main className="main">
         <div className="temp"></div>
         <div className="Wrapper">
           <section className="main__GoodsTypes">
-            <CardTypes imgSrc={BostonShaker} title={'Шейкеры'} description={'Бостон, Цейлон, Коблер'}></CardTypes>
-            <CardTypes imgSrc={Jigger} title={'Джиггеры'} description={'Металл, Стекло, Пластик'}></CardTypes>
-            <CardTypes imgSrc={Syrup} title={'Сиропы'} description={'Monin, Barline, Tempo'}></CardTypes>
-            <CardTypes imgSrc={Spoon} title={'Ложки'} description={'Нарезные, С пяткой, С вилами'}></CardTypes>
-            <CardTypes imgSrc={Streiner} title={'Стрейнеры'} description={'Съемные, несъемные'}></CardTypes>
-            <CardTypes imgSrc={Miscellanious} title={'Каталог'} description={'Все товары'}></CardTypes>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={BostonShaker} title={'Шейкеры'} description={'Бостон, Цейлон, Коблер'}></CardTypes>
+            </Link>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={Jigger} title={'Джиггеры'} description={'Металл, Стекло, Пластик'}></CardTypes>
+            </Link>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={Syrup} title={'Сиропы'} description={'Monin, Barline, Tempo'}></CardTypes>
+            </Link>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={Spoon} title={'Ложки'} description={'Нарезные, С пяткой, С вилами'}></CardTypes>
+            </Link>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={Streiner} title={'Стрейнеры'} description={'Съемные, несъемные'}></CardTypes>
+            </Link>
+
+            <Link to={'/catalog'} className="main__GoodsTypes__Link">
+              <CardTypes imgSrc={Miscellanious} title={'Каталог'} description={'Все товары'}></CardTypes>
+            </Link>
           </section>
-        </div>
+        </div >
         <div className="temp"></div>
-      </main>
+      </main >
       <Footer></Footer>
-    </div>
+    </div >
   );
 }
 
