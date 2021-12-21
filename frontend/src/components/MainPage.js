@@ -13,11 +13,11 @@ import Footer from "./footer";
 import Header from "./header";
 import "../css/MainPage.css"
 
-function MainPage() {
-
+function MainPage(props) {
+  const currentUser = props.user
   return (
     <div className="AppContainer">
-      <Header></Header>
+      <Header user={currentUser}></Header>
       <main className="main">
         <div className="temp"></div>
         <div className="Wrapper">

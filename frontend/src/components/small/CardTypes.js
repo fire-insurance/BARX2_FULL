@@ -26,7 +26,6 @@ function Card({ imgSrc, title, description }) {
         borderRadius: "2em",
         boxShadow: "0px 0px 20px rgb(216, 216, 216)",
         alignItems: "center",
-        padding: "20px 0px 0px 0px",
         width: "100%",
         gap: "10px",
     }

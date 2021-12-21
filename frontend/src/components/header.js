@@ -5,15 +5,28 @@ import looking_glass from "../Icons/looking_glass.png"
 import cart_img from "../Icons/cart.png"
 import heart_img from "../Icons/heart.png"
 import user_img from "../Icons/user.png"
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-function Header() {
 
+function Header(props) {
+    const navigate = useNavigate();
     const [user, setUser] = React.useState(null)
+    const [searchValue, setSearchValue] = React.useState('')
 
-    async function login(user = null) {
+    const onChangeSearchValue = (event) => {
+        setSearchValue(event.target.value)
+    }
+
+    const Search = () => {
+        navigate(`/catalog/search=${searchValue}`)
+    }
+
+    async function login(user = props.user) {
         setUser(user)
     }
+
+    React.useEffect(() => login(), [])
 
     async function logout() {
         setUser(null)
@@ -27,10 +40,10 @@ function Header() {
             </Link>
 
             <div className="header__SearchBar">
-                <button className="header__SearchBar__SearchButton">
+                <button className="header__SearchBar__SearchButton" onClick={Search}>
                     <img className="headerImg" src={looking_glass} alt="looking glass picture" />
                 </button>
-                <input className="header__SearchBar__SearchInput" type="text" placeholder="Поиск..." />
+                <input onChange={onChangeSearchValue} className="header__SearchBar__SearchInput" type="text" placeholder="Поиск..." />
             </div>
 
             <div className="header__UserStuffWrapper">
@@ -51,7 +64,7 @@ function Header() {
                 <div>
                     {user ? (
                         <a onClick={logout} className="header__UserStuffWrapper__Content">
-                            <p className="header__UserStuffWrapper__Text">Выйти {user.name}</p>
+                            <p className="header__UserStuffWrapper__Text">{user.name} | Выход</p>
                             <img className="headerImg" src={user_img}></img>
                         </a>
                     ) : (

@@ -9,19 +9,30 @@ import "../css/goods.css"
 import whiteHeartPic from '../Icons/white_heart.png'
 
 const GoodsList = (props) => {
+
+  const currentUser = props.user
+
   let type = useParams().type
-  if (type !== 'All') {
-    type = [...type].slice(0,type.length-1).join('')
+  if (type !== 'All' && type) {
+    type = [...type].slice(0, type.length - 1).join('')
   }
+  const search_name = useParams().search_value
 
   const [goods, setGoods] = useState([])
-  const [searchName, setSearchName] = useState('')
-
+  const [searchVal, setSearchVal] = useState('')
+  if (search_name) setSearchVal(search_name)
+  
   useEffect(() => {
-    type === 'All' ? getGoods() :
-    searchByType(type)
-  }, [])
 
+    if (type) {
+      if (type === 'All') getGoods()
+      else searchByType(type)
+    }
+    else {
+      console.log(searchVal)
+      searchByName(searchVal)
+    }
+  }, [])
 
   const getGoods = () => {
     ItemDataService.findAll()
@@ -37,7 +48,6 @@ const GoodsList = (props) => {
     const sType = e.target.value;
 
     sType === 'All' ? refreshList() : searchByType(sType);
-
   }
 
   const refreshList = () => {
@@ -45,7 +55,7 @@ const GoodsList = (props) => {
   }
 
   const search = (query, by) => {
-
+    console.log(query)
     ItemDataService.find(query, by)
       .then(response => {
         setGoods(response.data.goods)
@@ -55,8 +65,8 @@ const GoodsList = (props) => {
       })
   }
 
-  const searchByName = () => {
-    search(searchName, 'name')
+  const searchByName = (sName) => {
+    search(sName, 'name')
   }
 
   const searchByType = (type) => {
@@ -65,12 +75,12 @@ const GoodsList = (props) => {
 
   return (
     <div className="AppContainer">
-      <Header></Header>
+      <Header user={currentUser}></Header>
       <div className="main">
         <div className="temp"></div>
         <section className="catalog">
           <article className="options">
-            <Select onChange={onChangeType} name="input" label="Select Example" defaultValue={type} className="options__TypeSelect">
+            <Select onChange={onChangeType} name="input" label="Select Example" defaultValue={type ? type : 'All'} className="options__TypeSelect">
               <MenuItem value="All" label="Option 1" >Все товары</MenuItem>
               <MenuItem value="Shaker" label="Option 2" >Шейкеры</MenuItem>
               <MenuItem value="Jigger" label="Option 3" >Джиггеры</MenuItem>

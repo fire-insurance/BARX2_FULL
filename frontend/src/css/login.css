@@ -1,0 +1,219 @@
+* {
+  margin: 0;
+}
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url(../Fonts/Roboto-Regular.ttf);
+}
+
+.LoginWrapper {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.LoginWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff3d3d), to(#007eff));
+  background: linear-gradient(#ff3d3d, #007eff);
+  -webkit-clip-path: circle(15% at 30% 25%);
+          clip-path: circle(15% at 30% 25%);
+}
+
+.LoginWrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff3d3d), to(#007eff));
+  background: linear-gradient(#ff3d3d, #007eff);
+  -webkit-clip-path: circle(15% at 65% 75%);
+          clip-path: circle(15% at 65% 75%);
+  z-index: -1;
+}
+
+.Login {
+  font-family: Roboto-Regular;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 2em;
+  background-color: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 2em;
+  -webkit-box-shadow: 1em 1em 2em rgba(0, 0, 0, 0.5);
+          box-shadow: 1em 1em 2em rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(1em);
+          backdrop-filter: blur(1em);
+}
+
+.Login__Logo img {
+  height: 2.5em;
+}
+
+.Login__Nav {
+  margin-top: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
+.Login__Nav__NotRegistered {
+  padding: 0.5em;
+  font-size: 1.1em;
+  background-color: transparent;
+}
+
+.Login__Nav__NotRegistered:hover, .Login__Nav__AlreadyRegistered:hover {
+  background-color: rgba(168, 168, 168, 0.3);
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.Login__Nav__AlreadyRegistered {
+  padding: 0.5em;
+  background-color: transparent;
+  font-size: 1.1em;
+}
+
+.Login__Form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Login__Form__Input {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 1em auto;
+  color: black;
+  text-align: center;
+  border: #a8a8a8 solid 2px;
+  padding: 0.8em 0.8em;
+  outline: none;
+  border-radius: 1.5em;
+  -webkit-transition: 250ms;
+  transition: 250ms;
+  width: 25ch;
+  font-family: Roboto-Regular;
+  font-size: 1.1em;
+}
+
+.Login__Form__Input:focus {
+  width: 30ch;
+  border-color: #ff3d3d;
+}
+
+.Login__Form__Input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.Login__Form__Input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.Login__Form__Input:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+.Login__Form__Input:focus::placeholder {
+  color: transparent;
+}
+
+.Login__Form__Submit {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 1em auto;
+  color: black;
+  text-align: center;
+  border: #ff3d3d solid 2px;
+  padding: 1em 1em;
+  outline: none;
+  border-radius: 1.5em;
+  -webkit-transition: 250ms;
+  transition: 250ms;
+  width: 15ch;
+  background: none;
+  font-family: Roboto-Regular;
+  font-size: 1.1em;
+}
+
+.Login__Form__Submit:hover {
+  background: #ff3d3d;
+  cursor: pointer;
+  color: white;
+}
+
+@media (min-width: 280px) {
+  .Login {
+    font-size: 1em;
+  }
+  .Login__Logo img {
+    height: 2.5em;
+  }
+  .Login__Form__Input {
+    width: 18ch;
+  }
+  .Login__Form__Input:focus {
+    width: 22ch;
+  }
+}
+
+@media (min-width: 450px) {
+  .Login {
+    font-size: 1.1em;
+  }
+  .Login__Logo img {
+    height: 4em;
+  }
+  .Login__Form__Input {
+    width: 25ch;
+  }
+  .Login__Form__Input:focus {
+    width: 30ch;
+  }
+}
+
+@media (min-width: 1700px) {
+  .Login {
+    font-size: 1.3em;
+  }
+  .Login__Logo img {
+    height: 5em;
+  }
+  .Login__Form__Input {
+    width: 25ch;
+  }
+}
+/*# sourceMappingURL=login.css.map */
