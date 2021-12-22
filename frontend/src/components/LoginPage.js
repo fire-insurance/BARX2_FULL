@@ -35,8 +35,6 @@ function LoginPage(props) {
         setComponent([Register])
     }
 
-
-
     return (
         <section className="LoginWrapper">
             <div className="Login">

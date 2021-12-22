@@ -1,6 +1,9 @@
 let goods
-
+import {ObjectID} from "mongodb"
 export default class GoodsDAO {
+
+
+
     static async injectDB(conn) {
         if (goods) {
             return
@@ -45,8 +48,38 @@ export default class GoodsDAO {
             return { goodsList, totalGoodsNumber }
         } catch (error) {
             console.error(`Невозможно получить массив из запроса или подсчитать число документов: ${error}`)
-        
+
             return { goodsList: [], totalGoodsNumber: 0 }
+        }
+    }
+
+    static async addItem(name, price, type, pic_url) {
+        try {
+            const itemData = {
+                name: name,
+                type: type,
+                picture_URL: pic_url,
+                price: price
+            }
+
+            return await goods.insertOne(itemData)
+        } catch (e) {
+            console.error(`Unable to post item: ${e}`)
+            return { error: e }
+        }
+    }
+
+    static async deleteItem(itemID) {
+        console.log(itemID)
+        try {
+            const deleteResponse = await goods.deleteOne({
+                _id: ObjectID(itemID)
+            })
+
+            return deleteResponse
+        } catch (e) {
+            console.error(`Невозможно удалить: ${e}`)
+            return { error: e }
         }
     }
 }

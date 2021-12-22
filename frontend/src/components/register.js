@@ -23,6 +23,11 @@ const Register = () => {
         setName(event.target.value)
     }
 
+    const preventSubmit = (event) => {
+        event.preventDefault()
+        saveUser()
+    }
+
     const errStyle = {
         color: '#ff3d3d',
         display: userExists ? 'block' : 'none'
@@ -60,11 +65,11 @@ const Register = () => {
     }
 
     return (
-        <form className="Login__Form" >
+        <form className="Login__Form" onSubmit={preventSubmit}>
             <input onChange={handleEmailChange} className="Login__Form__Input" type="email" placeholder="Электронная почта" required />
             <input onChange={handlePasswordChange} className="Login__Form__Input" type="password" placeholder="Пароль" required />
             <input onChange={handleNameChange} className="Login__Form__Input" type="text" placeholder="Ваше имя" required />
-            <button type="button" onClick={saveUser} className="Login__Form__Submit">Регистрация</button>
+            <button type="submit" className="Login__Form__Submit">Регистрация</button>
             <p style={errStyle}>Пользователь с таким email уже существует</p>
         </form>
     )

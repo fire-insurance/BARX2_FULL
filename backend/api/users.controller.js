@@ -1,4 +1,5 @@
 import UsersDAO from "../dao/usersDAO.js"
+import bcrypt from 'bcrypt'
 
 export default class UsersController {
     static async apiGetUsers(req, res) {
@@ -8,19 +9,19 @@ export default class UsersController {
 
         // Получаем из тела запроса фильтры 
         let filters = {}
-        if(req.query.name){
-            filters.name = req.query.name
+        if (req.query.email) {
+            filters.email = req.query.email
         }
-        else if (req.query.rigths){
+        else if (req.query.rigths) {
             filters.rigths = req.query.rigths
         }
-
         // Получаем список пользователей и их кол-во из БД
-        const {usersList, totalUsersNumber} = await UsersDAO.getUsers({
+        const { usersList, totalUsersNumber } = await UsersDAO.getUsers({
             filters,
             page,
             usersPerPage
         })
+
 
         // Возвращаем ответ на HTTP-запрос
         let response = {
@@ -30,6 +31,25 @@ export default class UsersController {
             entries_per_page: usersPerPage,
             total_results: totalUsersNumber
         }
-        res.json(response)
+        return res.json(response)
+    }
+
+    static async apiPostUser(req, res) {
+        const email = req.body.userEmail
+        const password = bcrypt.hashSync(req.body.userPassword, 10)
+        const name = req.body.userName
+        const rigths = req.body.userRights
+        console.log(password)
+        try {
+            const userResponse = await UsersDAO.addUser(
+                email,
+                password,
+                name,
+                rigths
+            )
+            res.json({ status: "success" })
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
     }
 }

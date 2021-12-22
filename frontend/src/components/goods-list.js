@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Header from '../components/header';
 import Footer from "./footer.js";
 import "../css/goods.css"
-import whiteHeartPic from '../Icons/white_heart.png'
+import GoodsObject from "./goodsObject.js";
 
 const GoodsList = (props) => {
 
@@ -17,21 +17,25 @@ const GoodsList = (props) => {
     type = [...type].slice(0, type.length - 1).join('')
   }
   const search_name = useParams().search_value
-
   const [goods, setGoods] = useState([])
   const [searchVal, setSearchVal] = useState('')
-  if (search_name) setSearchVal(search_name)
-  
-  useEffect(() => {
 
+  if (search_name && search_name !== searchVal)
+    setSearchVal(search_name)
+
+  useEffect(() => {
+    if (search_name) {
+      searchByName(search_name)
+    }
     if (type) {
       if (type === 'All') getGoods()
       else searchByType(type)
     }
     else {
-      console.log(searchVal)
-      searchByName(searchVal)
+      type = 'All'
+      getGoods()
     }
+
   }, [])
 
   const getGoods = () => {
@@ -75,7 +79,7 @@ const GoodsList = (props) => {
 
   return (
     <div className="AppContainer">
-      <Header user={currentUser}></Header>
+      <Header user={currentUser} searchByName={searchByName}></Header>
       <div className="main">
         <div className="temp"></div>
         <section className="catalog">
@@ -89,30 +93,9 @@ const GoodsList = (props) => {
               <MenuItem value="Streiner" label="Option 4" >Стрейнеры</MenuItem>
             </Select>
           </article>
-          <article className="Items">
-            {goods.length === 0 ? <p>Ничего не найдено</p> : goods.map(item => {
-              return (
-                <div className="Item" key={item._id}>
-
-                  <div className="Item__ImgAndDesc">
-                    <img className="Item__ImgAndDesc__MainImg" src={`../Goods_Pics/${item.picture_URL}`} alt="" />
-                    <p className="Item__ImgAndDesc__Description">{item.name}</p>
-                  </div>
-
-                  <div className="Item__PriceAndButtons">
-                    <p className="Item__PriceAndButtons__Price">{item.price}</p>
-                    <div className="Item__PriceAndButtons__Buttons">
-                      <input className="Item__PriceAndButtons__Buttons__MoveToCart" type="submit" value="В корзину" />
-                      <div className="Item__PriceAndButtons__Buttons__MvToFavorites">
-                        <img src={whiteHeartPic} />
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              )
-            })}
-          </article>
+          {
+            goods.length ? (<div className="Items"> <GoodsObject goods={goods} renderForUser={true} /></div>) : (<p>Загрузка</p>)
+          }
         </section>
         <div className="temp"></div>
       </div>

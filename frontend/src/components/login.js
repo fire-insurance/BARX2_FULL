@@ -10,7 +10,8 @@ const Login = (props) => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [errText, setErrText] = React.useState('')
-
+  let checkIsUserAnEmployee;
+  if (props.checkIsUserAnEmployee) checkIsUserAnEmployee = props.checkIsUserAnEmployee
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
@@ -24,7 +25,12 @@ const Login = (props) => {
     throw err;
   }
 
-  async function checkUser() {
+  const preventSubmit = (event) => {
+    event.preventDefault()
+    checkUser()
+  }
+
+  const checkUser = () => {
     let userData = {
       userEmail: email,
       userPassword: password,
@@ -32,7 +38,6 @@ const Login = (props) => {
     UserDataService.find(userData.userEmail)
       .then(res => {
         if (res.data['total_results'] === 0) {
-          console.log(res)
           throwErr('Пользователь не существует')
         }
         else {
@@ -40,9 +45,8 @@ const Login = (props) => {
           const dbUserPassword = res.data.users[0].password;
           bcrypt.compareSync(userData.userPassword, dbUserPassword) ? setErrText('')
             : throwErr('Неверный логин или пароль')
-
-          props.login({ name: res.data.users[0].name, id: res.data.users[0]._id })
-
+          if (checkIsUserAnEmployee) checkIsUserAnEmployee(res.data.users[0].rights, res.data.users[0].email)
+          else props.login({ name: res.data.users[0].name, id: res.data.users[0]._id })
         }
       })
       .catch(err => {
@@ -57,10 +61,10 @@ const Login = (props) => {
   }
 
   return (
-    <form className="Login__Form">
+    <form className="Login__Form" onSubmit={preventSubmit}>
       <input onChange={handleEmailChange} className="Login__Form__Input" type="email" name="email" placeholder="Электронная почта" required />
       <input onChange={handlePasswordChange} className="Login__Form__Input" type="password" name="password" placeholder="Пароль" required />
-      <button type="button" onClick={checkUser} className="Login__Form__Submit">Вход</button>
+      <button type="submit" className="Login__Form__Submit">Вход</button>
       <p style={errStyle}>{errText}</p>
     </form>)
 }

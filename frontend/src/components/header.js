@@ -19,6 +19,9 @@ function Header(props) {
     }
 
     const Search = () => {
+        if (props.searchByName) {
+            props.searchByName(searchValue)
+        }
         navigate(`/catalog/search=${searchValue}`)
     }
 

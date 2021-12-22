@@ -19,8 +19,8 @@ export default class UsersDAO {
     } = {}) {
         let query
         if (filters) {
-            if ("name" in filters) {
-                query = { $text: { $search: filters["name"] } }
+            if ("email" in filters) {
+                query = { 'email': { $eq: filters["email"] } }
             } else if ("rights" in filters) {
                 query = { "rights": { $eq: filters["rights"] } }
             }
@@ -48,5 +48,21 @@ export default class UsersDAO {
         
             return { usersList: [], totalUsersNumber: 0 }
         }
+    }
+
+    static async addUser(email, password, name, rights){
+        try {
+            const userData = { 
+                email: email,
+                password: password,
+                name: name,
+                rights: rights
+             }
+      
+            return await users.insertOne(userData)
+          } catch (e) {
+            console.error(`Unable to post user: ${e}`)
+            return { error: e }
+          }
     }
 }
