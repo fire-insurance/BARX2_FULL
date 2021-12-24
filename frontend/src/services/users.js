@@ -18,13 +18,12 @@ class UserDataService {
         return http.post("/users/user", userData)
     }
 
-    static updateUser(data) {
-        // return http.put("/users/user", data)
-
+    static updateUserRights(data) {
+        return http.put("/users/user", data)
     }
 
     static deleteUser(id) {
-        return http.delete(`/users/iser?id=${id}`);
+        return http.delete(`/users/user?id=${id}`);
     }
 }
 

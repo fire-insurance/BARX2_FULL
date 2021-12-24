@@ -1,4 +1,5 @@
 let users
+import { ObjectId } from "mongodb"
 
 export default class UsersDAO {
     static async injectDB(conn) {
@@ -20,12 +21,11 @@ export default class UsersDAO {
         let query
         if (filters) {
             if ("email" in filters) {
-                query = { 'email': { $eq: filters["email"] } }
+                query = { 'email': { $regex: filters["email"] } }
             } else if ("rights" in filters) {
                 query = { "rights": { $eq: filters["rights"] } }
             }
         }
-
         let cursor
 
         try {
@@ -45,24 +45,51 @@ export default class UsersDAO {
             return { usersList, totalUsersNumber }
         } catch (error) {
             console.error(`Невозможно получить массив из запроса или подсчитать число документов: ${error}`)
-        
+
             return { usersList: [], totalUsersNumber: 0 }
         }
     }
 
-    static async addUser(email, password, name, rights){
+    static async addUser(email, password, name, rights) {
         try {
-            const userData = { 
+            const userData = {
                 email: email,
                 password: password,
                 name: name,
                 rights: rights
-             }
-      
+            }
+
             return await users.insertOne(userData)
-          } catch (e) {
+        } catch (e) {
             console.error(`Unable to post user: ${e}`)
             return { error: e }
-          }
+        }
+    }
+
+    static async deleteUser(userID) {
+
+        try {
+            const deleteResponse = await users.deleteOne({
+                _id: ObjectId(userID)
+            })
+
+            return deleteResponse
+        } catch (e) {
+            console.error(`Невозможно удалить: ${e}`)
+            return { error: e }
+        }
+    }
+
+    static async updateUser(_id, rights) {
+        console.log(_id)
+        console.log(rights)
+
+        try {
+            return await users.updateOne({ _id: ObjectId(_id) },
+                { $set: { rights: rights, } })
+        } catch (e) {
+            console.error(`Unable to update user: ${e}`)
+            return { error: e }
+        }
     }
 }

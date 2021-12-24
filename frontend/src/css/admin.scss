@@ -7,7 +7,6 @@ $SoftBlue: #007eff;
     margin-top: 50px;
 }
 
-
 .Delete {
     background-color: $SoftRed;
 }
@@ -62,15 +61,19 @@ $SoftBlue: #007eff;
     width: 40px;
     height: 40px;
     background-color: $SoftBlue !important;
-    &:hover{
+    &:hover {
         background-color: #0058af !important;
     }
     padding: 0px !important;
     img {
         width: 20px;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
     }
     justify-self: flex-end;
-    &:disabled{
+    &:disabled {
         background-color: #6194c7 !important;
     }
 }
@@ -110,7 +113,10 @@ $SoftBlue: #007eff;
     }
 }
 
-.deleteConfirmationWrapper{
+.deleteConfirmationWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     width: 100vw;
@@ -119,18 +125,18 @@ $SoftBlue: #007eff;
     z-index: 100;
 }
 
-.deleteConfirmation{
+.deleteConfirmation {
     position: absolute;
     top: 50%;
     right: 50%;
-    transform: translate(50%,-50%);
+    transform: translate(50%, -50%);
     background-color: white;
     padding: 30px;
     border-radius: 30px;
     display: grid;
     place-items: center;
     gap: 20px;
-    &__btnGroup{
+    &__btnGroup {
         display: flex;
         gap: 20px;
     }

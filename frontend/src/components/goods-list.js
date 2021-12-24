@@ -84,7 +84,7 @@ const GoodsList = (props) => {
         <div className="temp"></div>
         <section className="catalog">
           <article className="options">
-            <Select onChange={onChangeType} name="input" label="Select Example" defaultValue={type ? type : 'All'} className="options__TypeSelect">
+            <Select onChange={onChangeType} variant="filled" name="input" label="Select Example" defaultValue={type ? type : 'All'} className="options__TypeSelect">
               <MenuItem value="All" label="Option 1" >Все товары</MenuItem>
               <MenuItem value="Shaker" label="Option 2" >Шейкеры</MenuItem>
               <MenuItem value="Jigger" label="Option 3" >Джиггеры</MenuItem>
@@ -94,7 +94,7 @@ const GoodsList = (props) => {
             </Select>
           </article>
           {
-            goods.length ? (<div className="Items"> <GoodsObject goods={goods} renderForUser={true} /></div>) : (<p>Загрузка</p>)
+            goods.length ? (<div className="Items"> <GoodsObject goods={goods} renderForUser={true} /></div>) : (<p>Ничего не найдено</p>)
           }
         </section>
         <div className="temp"></div>

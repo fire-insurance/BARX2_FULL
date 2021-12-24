@@ -16,7 +16,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-
+import UsersList from "./users-list.js";
 
 function Admin(props) {
 
@@ -25,8 +25,12 @@ function Admin(props) {
     const [goods, setGoods] = useState([])
     const [dataSet, setDataSet] = useState('Goods')
     const [searchValue, setSearchValue] = React.useState('')
+    const [userSearchValue, setUserSearchValue] = React.useState('')
     const [isAddingItem, setIsAddingItem] = React.useState(false)
     const [itemToDelete, setItemToDelete] = React.useState([])
+    const [currentType, setCurrentType] = React.useState('All')
+    const [currentUserType, setUserCurrentType] = React.useState('All')
+    const [emailSearchValue, setEmailSearchValue] = React.useState('')
 
     const handleDataSetChange = (event, newDataSet) => {
         if (newDataSet !== null)
@@ -37,12 +41,10 @@ function Admin(props) {
         setSearchValue(event.target.value)
     }
 
-    const Search = () => {
-        // if (props.searchByName) {
-        //     props.searchByName(searchValue)
-        // }
-        // navigate(`/catalog/search=${searchValue}`)
+    const onChangeUserSearchValue = (event) => {
+        setUserSearchValue(event.target.value)
     }
+
 
     const checkIsUserAnEmployee = (userRights, userEmail) => {
         if (userRights === 'Admin' || userRights === 'Moderator') {
@@ -54,16 +56,6 @@ function Admin(props) {
 
     const type = '';
 
-    // let type = useParams().type
-    // if (type !== 'All' && type) {
-    //     type = [...type].slice(0, type.length - 1).join('')
-    // }
-    // const search_name = useParams().search_value
-    // const [goods, setGoods] = useState([])
-    // const [searchVal, setSearchVal] = useState('')
-
-    // if (search_name && search_name !== searchVal)
-    //     setSearchVal(search_name)
 
     useEffect(() => {
         getGoods()
@@ -81,8 +73,14 @@ function Admin(props) {
 
     const onChangeType = (e) => {
         const sType = e.target.value;
-
+        setCurrentType(sType)
         sType === 'All' ? refreshList() : searchByType(sType);
+    }
+
+    const onChangeUserType = e => {
+        if (e.target.value !== currentUserType) {
+            setUserCurrentType(e.target.value)
+        }
     }
 
     const refreshList = () => {
@@ -100,8 +98,9 @@ function Admin(props) {
             })
     }
 
-    const searchByName = (sName) => {
-        search(sName, 'name')
+    const searchByName = () => {
+        searchValue !== '' ?
+            search(searchValue, 'name') : refreshList()
     }
 
     const searchByType = (type) => {
@@ -137,9 +136,11 @@ function Admin(props) {
         formData.append('price', item_price)
         formData.append('type', item_type)
         ItemDataService.createItem(formData)
-        getGoods()
-        setIsAddingItem(false)
-        event.target.reset()
+            .then(e => {
+                setIsAddingItem(false)
+                event.target.reset()
+                refreshList()
+            })
     }
 
     const confirmDeleteItem = (id, name) => {
@@ -148,12 +149,23 @@ function Admin(props) {
 
     const deleteItem = () => {
         ItemDataService.deleteItem(itemToDelete[1])
-        setItemToDelete([])
-        getGoods()
+            .then(e => {
+                setItemToDelete([])
+                refreshList()
+            })
+    }
+
+    const updateItem = (formData) => {
+        ItemDataService.updateItem(formData)
+            .then(e => refreshList())
     }
 
     const deleteConfirmationStyle = {
         display: itemToDelete[0] ? 'block' : 'none'
+    }
+
+    const addObjectBtnStyle = {
+        display: dataSet === 'Goods' ? 'block' : 'none'
     }
 
     return (
@@ -185,7 +197,7 @@ function Admin(props) {
                                         <ToggleButton className="toggleBtn" value="Users">Пользователи</ToggleButton>
                                     </ToggleButtonGroup>
                                 </div>
-                                <div className="controlBoard__Data__BottomData">
+                                {dataSet === 'Goods' ? (<div className="controlBoard__Data__BottomData">
                                     <Select onChange={onChangeType} name="input" label="Select Example" defaultValue={type ? type : 'All'} className="controlBoard__Data__BottomData__Select">
                                         <MenuItem value="All" label="Option 1" >Все товары</MenuItem>
                                         <MenuItem value="Shaker" label="Option 2" >Шейкеры</MenuItem>
@@ -195,12 +207,26 @@ function Admin(props) {
                                         <MenuItem value="Streiner" label="Option 4" >Стрейнеры</MenuItem>
                                     </Select>
                                     <div className="header__SearchBar">
-                                        <button className="header__SearchBar__SearchButton" onClick={Search}>
+                                        <button className="header__SearchBar__SearchButton" onClick={searchByName}>
                                             <img className="headerImg" src={looking_glass} alt="looking glass picture" />
                                         </button>
                                         <input onChange={onChangeSearchValue} className="header__SearchBar__SearchInput" type="text" placeholder="Поиск..." />
                                     </div>
-                                </div>
+                                </div>) : (<div className="controlBoard__Data__BottomData">
+                                    <Select onChange={onChangeUserType} name="input" label="Select Example" defaultValue='All' className="controlBoard__Data__BottomData__Select">
+                                        <MenuItem value="All" label="Option 1" >Все пользователи</MenuItem>
+                                        <MenuItem value="User" label="Option 2" >Пользователь</MenuItem>
+                                        <MenuItem value="Admin" label="Option 3" >Админ</MenuItem>
+                                        <MenuItem value="Moderator" label="Option 4" >Модератор</MenuItem>
+                                    </Select>
+                                    <div className="header__SearchBar">
+                                        <button className="header__SearchBar__SearchButton" onClick={e => setEmailSearchValue(userSearchValue)}>
+                                            <img className="headerImg" src={looking_glass} alt="looking glass picture" />
+                                        </button>
+                                        <input onChange={onChangeUserSearchValue} className="header__SearchBar__SearchInput" type="text" placeholder="Поиск..." />
+                                    </div>
+                                </div>)}
+
                             </div>
 
                             <div></div>
@@ -209,7 +235,7 @@ function Admin(props) {
                             <div className="temp"></div>
                             <section className="catalog catalogAdmin">
 
-                                <IconButton className="addObjBtn" color="primary" onClick={setNewItemStyleTrue} disabled={isAddingItem}>
+                                <IconButton className="addObjBtn" color="primary" onClick={setNewItemStyleTrue} disabled={isAddingItem} style={addObjectBtnStyle}>
                                     <img src={plusIcon}></img>
                                 </IconButton>
 
@@ -240,7 +266,8 @@ function Admin(props) {
                                         </div>
 
                                     </form>
-                                    {goods.length ? (<GoodsObject goods={goods} renderForUser={false} deleteItem={confirmDeleteItem} />) : (<p>Загрузка</p>)}
+                                    {dataSet === "Goods" ? (goods.length ? (<GoodsObject goods={goods} renderForUser={false} deleteItem={confirmDeleteItem} updateItem={updateItem} />) : (<p>Загрузка</p>))
+                                        : (<UsersList currentUserType={currentUserType} searchByEmail={emailSearchValue} loggedUserRights={userEmployee} />)}
                                 </article>
 
                             </section>
@@ -260,7 +287,7 @@ function Admin(props) {
                                 </div>
 
                             </div>
-                            <Login login={props.login} checkIsUserAnEmployee={checkIsUserAnEmployee}></Login>
+                            <Login login={props.login} checkIsUserAnEmployee={checkIsUserAnEmployee} ></Login>
                         </div>
                     </section>)
             }</div>)

@@ -1,0 +1,42 @@
+.User {
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
+    height: max-content;
+    padding: 10px;
+    justify-content: space-between;
+
+    &__Data {
+        font-weight: 800;
+        &__Content {
+            font-weight: 500;
+        }
+    }
+
+    &__Controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: end;
+        &__Rights {
+            height: 50px;
+            width: 170px;
+        }
+
+        &__Button__Delete {
+            background-color: #ff3d3d;
+            transition: 300ms;
+            &:hover {
+                cursor: pointer;
+                background-color: #9c0000;
+            }
+
+            padding: 7px;
+            border-radius: 7px;
+            img {
+                height: 30px;
+            }
+        }
+    }
+}

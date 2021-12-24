@@ -12,8 +12,8 @@ export default class UsersController {
         if (req.query.email) {
             filters.email = req.query.email
         }
-        else if (req.query.rigths) {
-            filters.rigths = req.query.rigths
+        else if (req.query.rights) {
+            filters.rights = req.query.rights
         }
         // Получаем список пользователей и их кол-во из БД
         const { usersList, totalUsersNumber } = await UsersDAO.getUsers({
@@ -46,6 +46,36 @@ export default class UsersController {
                 password,
                 name,
                 rigths
+            )
+            res.json({ status: "success" })
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
+
+    static async apiDeleteUser(req, res) {
+        try {
+            const userToDeleteID = req.query.id;
+            const itemResponse = await UsersDAO.deleteUser(
+                userToDeleteID
+            )
+            res.json({ status: "success" })
+        }
+        catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
+    
+    static async apiUpdateUser(req, res) {
+        const _id = req.body._id
+        const rights = req.body.rights
+        console.log(_id)
+        console.log(rights)
+
+        try {
+            const itemResponse = await UsersDAO.updateUser(
+                _id,
+                rights
             )
             res.json({ status: "success" })
         } catch (e) {

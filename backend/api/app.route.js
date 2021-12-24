@@ -22,12 +22,14 @@ router.route("/users").get((UsersController.apiGetUsers))
 
 router.route("/users/user")
     .post(UsersController.apiPostUser)
-//   .put(UsersController.apiUpdateUser)
-//   .delete(UsersController.apiDeleteUser)
+    .delete(UsersController.apiDeleteUser)
+    .put(UsersController.apiUpdateUser)
+
 
 router.route("/goods/item")
     .post(upload.single("image"), goodsController.apiPostItem)
     .delete(goodsController.apiDeleteItem)
+    .put(upload.single("image"), goodsController.apiUpdateItem)
 
 router.route("/fetchImage")
     .get((goodsController.apiFetchImg))

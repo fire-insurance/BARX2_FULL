@@ -13,15 +13,15 @@ class ItemDataService {
         return http.get(`/goods?${by}=${query}&page=${page}`)
     }
 
-    static createItem(data) {
+    static async createItem(data) {
         return http.post("/goods/item", data)
     }
 
-    static updateItem(data) {
+    static async updateItem(data) {
         return http.put("/goods/item", data)
     }
 
-    static deleteItem(id) {
+    static async deleteItem(id) {
         return http.delete(`/goods/item?id=${id}`);
     }
 

@@ -54,6 +54,26 @@ export default class GoodsController {
         }
     }
 
+    static async apiUpdateItem(req, res) {
+        const pic_url = req.file.filename
+        const name = req.body.name;
+        const price = req.body.price;
+        const type = req.body.type;
+        const _id = req.body._id
+        try {
+            const itemResponse = await GoodsDAO.updateItem(
+                _id,
+                name,
+                price,
+                type,
+                pic_url
+            )
+            res.json({ status: "success" })
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
+
     static async apiDeleteItem(req, res) {
         try {
             const itemToDeleteID = req.query.id;

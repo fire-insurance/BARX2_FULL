@@ -21,7 +21,7 @@ function GoodsObject(props) {
   return (
     <div style={divStyle}>
       {goods.length === 0 ? <p>Ничего не найдено</p> : goods.map(item => {
-        return <SingleItem key={item._id} renderForUser={renderForUser} deleteItem={props.deleteItem} item={item} />
+        return <SingleItem key={item._id} renderForUser={renderForUser} deleteItem={props.deleteItem} updateItem={props.updateItem} item={item} />
       })}
     </div>
   )
