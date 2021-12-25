@@ -6,7 +6,7 @@ class ItemDataService {
     }
 
     static getById(id) {
-        return http.get(`/goods/id/${id}`);
+        return http.get(`/goods/id?id=${id}`);
     }
 
     static find(query, by = "name", page = 0) {

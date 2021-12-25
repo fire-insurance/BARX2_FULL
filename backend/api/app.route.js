@@ -31,6 +31,9 @@ router.route("/goods/item")
     .delete(goodsController.apiDeleteItem)
     .put(upload.single("image"), goodsController.apiUpdateItem)
 
+router.route("/goods/id")
+    .get(goodsController.apiGetItemById)
+
 router.route("/fetchImage")
     .get((goodsController.apiFetchImg))
 

@@ -1,0 +1,231 @@
+@charset "UTF-8";
+.Card {
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+          box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-radius: 2em;
+}
+
+.CartItems {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
+.CartInfo {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: 40ch;
+  gap: 2em;
+  overflow: hidden;
+  padding: 1.5em;
+}
+
+.CartInfo .InfoHeader {
+  border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+}
+
+.CartInfo .InfoHeader p {
+  font-size: 2em;
+}
+
+.CartInfo select {
+  border: none;
+  font-size: 1em;
+}
+
+.CartInfo .TotalPrice {
+  font-size: 1.25em;
+  color: #ff3d3d;
+}
+
+.CartInfo select:active,
+.CartInfo select:focus {
+  outline: none;
+}
+
+.CartInfo .Black {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+.CartInfo .TotalPrice::after {
+  content: " ₽";
+}
+
+.CartInfo .Checkout {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  font-size: 1.25em;
+  font-family: "Roboto-Regular";
+  font-weight: 100;
+  background-color: #007eff;
+  width: 20ch;
+  border-radius: 0.6em;
+  color: white;
+  outline: none;
+  border: none;
+  height: 2em;
+}
+
+.CartInfo .Checkout:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.ItemCart {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+  gap: 2em;
+  width: auto;
+  border-radius: 2em;
+  background-color: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 1.5em;
+  -webkit-box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+          box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.ItemCart img {
+  height: 10em;
+  width: 10em;
+}
+
+.ItemCart .Price {
+  color: #ff3d3d;
+  font-size: 1.5em;
+}
+
+.ItemCart .Price::after {
+  content: " ₽";
+}
+
+.ItemCart .Description {
+  font-size: 1.25em;
+  width: 12em;
+}
+
+.ItemCart .MvToFavorites {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  font-size: 1em;
+  background-color: #007eff;
+  width: auto;
+  border-radius: 0.6em;
+  color: white;
+  outline: none;
+  border: none;
+  height: 2em;
+}
+
+.ItemCart .MvToFavorites:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.ItemInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5em;
+}
+
+.ItemInfo .Quantity {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ItemInfo .Quantity p {
+  font-size: 1em;
+  height: 1.1em;
+}
+
+.ItemInfo .Quantity select {
+  border: none;
+  opacity: 0.8;
+  font-size: 1em;
+  font-family: Roboto, sans-serif;
+}
+
+.Close p {
+  -webkit-transform: scaleX(1.3);
+          transform: scaleX(1.3);
+}
+
+.Close:hover {
+  cursor: pointer;
+}
+
+.CartItems {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.catalogCart {
+  justify-items: center;
+}
+
+@media (max-width: 1200px) {
+  .catalogCart {
+    -ms-grid-columns: auto !important;
+        grid-template-columns: auto !important;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .Item {
+    -ms-grid-columns: auto !important;
+        grid-template-columns: auto !important;
+    place-items: center;
+    width: -webkit-max-content !important;
+    width: -moz-max-content !important;
+    width: max-content !important;
+  }
+  .Close {
+    position: absolute;
+    top: 10%;
+    left: 90%;
+  }
+}
+/*# sourceMappingURL=cart.css.map */

@@ -51,12 +51,12 @@ function Header(props) {
 
             <div className="header__UserStuffWrapper">
 
-                <Link to={"/favorites"}>
+                {/* <Link to={"/favorites"}>
                     <div className="header__UserStuffWrapper__Content">
                         <p className="header__UserStuffWrapper__Text">Избранное</p>
                         <img className="headerImg" src={heart_img}></img>
                     </div>
-                </Link>
+                </Link> */}
 
                 <Link to={"/cart"}>
                     <div className="header__UserStuffWrapper__Content">

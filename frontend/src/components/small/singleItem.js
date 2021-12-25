@@ -14,7 +14,7 @@ const SingleItem = (props) => {
 
     const item = props.item
     const renderForUser = props.renderForUser
-
+    const goodsLocalStorage = window.localStorage;
     const [itemImg, setItemImg] = React.useState('')
     const [isChanging, setIsChanging] = React.useState(false)
 
@@ -73,6 +73,23 @@ const SingleItem = (props) => {
         setIsChanging(false)
     }
 
+    // Запись товаров в корзине в local storage
+    // ключ - название товара, значение - кол-во этого товара в корзине
+    const appendItemToLocalStorage = () => {
+
+        //Количество товара по умолчанию - 1
+        let itemQuantity = 1;
+        let itemKey = item._id
+        // Если в корзине уже находится такой товар - получаем его кол-во в корзине 
+        if (goodsLocalStorage.hasOwnProperty(itemKey))
+            itemQuantity = parseInt(goodsLocalStorage.getItem(itemKey)) + 1;
+        if (itemQuantity > 5) itemQuantity = 5;
+        // Производим запись в local storage
+        goodsLocalStorage.setItem(itemKey, itemQuantity)
+    }
+
+
+
     return (
         <div >
             {renderForUser ? (
@@ -86,10 +103,8 @@ const SingleItem = (props) => {
                         <p className="Item__PriceAndButtons__Price">{item.price}</p>
 
                         <div className="Item__PriceAndButtons__Buttons">
-                            <input className="Item__PriceAndButtons__Buttons__MoveToCart" type="submit" value="В корзину" />
-                            <div className="Item__PriceAndButtons__Buttons__MvToFavorites">
-                                <img src={whiteHeartPic} />
-                            </div>
+                            <input className="Item__PriceAndButtons__Buttons__MoveToCart" type="submit" value="В корзину" style={{ borderRadius: '0.6em' }} onClick={appendItemToLocalStorage} />
+
                         </div>
                     </div>
                 </div>
@@ -97,9 +112,9 @@ const SingleItem = (props) => {
                 <form className="Item NewItem" onSubmit={onUpdateItemSubmit}>
                     <label htmlFor="update-item-button-file">
                         <Input accept="image/*" className="NewItem__InputImg" id="update-item-button-file" type="file" name="img" multiple={false} />
-                            <IconButton color="primary" className="NewItem__InputImg" aria-label="upload picture" component="span">
-                                <PhotoCamera className="NewItem__InputImg" />
-                            </IconButton>       
+                        <IconButton color="primary" className="NewItem__InputImg" aria-label="upload picture" component="span">
+                            <PhotoCamera className="NewItem__InputImg" />
+                        </IconButton>
                     </label>
                     <div className="NewItem__TextInputs">
                         <TextField id="filled-basic" className="NewItem__TextInput" id='name' name="name" label="Название" variant="filled" defaultValue={item.name} required />

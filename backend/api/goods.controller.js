@@ -36,6 +36,13 @@ export default class GoodsController {
         res.json(response)
     }
 
+    static async apiGetItemById(req, res) {
+        const _id = req.query.id;
+        const item = await GoodsDAO.getItemByID(_id)
+        let response = { item: item }
+        res.json(response)
+    }
+
     static async apiPostItem(req, res) {
         const pic_url = req.file.filename
         const name = req.body.name;

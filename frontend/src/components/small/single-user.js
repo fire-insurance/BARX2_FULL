@@ -11,19 +11,22 @@ const SingleUser = (props) => {
 
     const user = props.user
     const [rightsAccessebility, setRightsAccessebility] = React.useState(false)
-
+    const [rightsToDelete, setRightsToDelete] = React.useState(false)
     useEffect(() => {
-        console.log(props.loggedUserRights)
-        if (user.rights === 'Admin') setRightsAccessebility(true)
-        else if (user.rights === 'Moderator' && props.loggedUserRights === 'Moderator') setRightsAccessebility(true)
-        else setRightsAccessebility(false)
+        if (user.rights === 'Admin') {
+            setRightsAccessebility(true)
+            setRightsToDelete(true)
+        }
+        if (props.loggedUserRights === 'Moderator') {
+            setRightsAccessebility(true)
+            if (user.rights === 'Moderator') setRightsToDelete(true)
+        }
     }, [])
 
 
     const updUserRights = (event) => {
         props.updateUserRights(user._id, event.target.value)
     }
-
 
     return (
 
@@ -39,7 +42,7 @@ const SingleUser = (props) => {
                 </Select>
 
                 <div className="User__Controls__Button__Delete" onClick={e => props.setUserToDelete([user._id, user.email])} style={{
-                    display: rightsAccessebility ? 'none' : 'block'
+                    display: rightsToDelete ? 'none' : 'block'
                 }}>
                     < img src={trashCan} />
                 </div>

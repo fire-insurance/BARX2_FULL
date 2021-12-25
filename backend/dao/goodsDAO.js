@@ -96,7 +96,7 @@ export default class GoodsDAO {
     static async getImgByID(itemID) {
         let cursor
         const query = { "_id": { $eq: ObjectId(itemID) } }
-        console.log(query)
+
         try {
             cursor = await goods
                 .find(query)
@@ -112,6 +112,28 @@ export default class GoodsDAO {
             console.error(`Невозможно получить массив из запроса или подсчитать число документов: ${error}`)
 
             return goodsList
+        }
+    }
+
+    static async getItemByID(_id) {
+        let cursor
+
+        const query = { "_id": { $eq: ObjectId(_id) } }
+        try {
+            cursor = await goods
+                .find(query)
+        } catch (error) {
+            console.error(`Невозможно выполнить запрос: ${error}`)
+            return []
+        }
+        try {
+            const item = await cursor.toArray()
+
+            return item[0];
+        } catch (error) {
+            console.error(`Невозможно получить массив из запроса или подсчитать число документов: ${error}`)
+
+            return item
         }
     }
 

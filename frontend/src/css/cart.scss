@@ -1,0 +1,187 @@
+$SoftRed: #ff3d3d;
+$SoftBlue: #007eff;
+
+.Card {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: 2em;
+}
+
+.CartItems {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.CartInfo {
+    display: grid;
+    grid-template-columns: auto;
+    height: max-content;
+    width: 40ch;
+    gap: 2em;
+    overflow: hidden;
+    padding: 1.5em;
+
+    .InfoHeader {
+        p {
+            font-size: 2em;
+        }
+        border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+    }
+
+    select {
+        border: none;
+        font-size: 1em;
+    }
+
+    .TotalPrice {
+        font-size: 1.25em;
+        color: $SoftRed;
+    }
+
+    select:active,
+    select:focus {
+        outline: none;
+    }
+
+    .Black {
+        font-size: 1.5em;
+        font-weight: 400;
+        margin-bottom: 0.5em;
+    }
+
+    .TotalPrice::after {
+        content: " ₽";
+    }
+
+    .Checkout {
+        justify-self: center;
+        display: grid;
+        place-items: center;
+        font-size: 1.25em;
+        font-family: "Roboto-Regular";
+        font-weight: 100;
+        background-color: $SoftBlue;
+        width: 20ch;
+        border-radius: 0.6em;
+        color: white;
+        outline: none;
+        border: none;
+        height: 2em;
+    }
+
+    .Checkout:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: 200ms;
+    }
+}
+
+.ItemCart {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 2em;
+    width: auto;
+    border-radius: 2em;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    overflow: hidden;
+    padding: 1.5em;
+    box-shadow: 0.1em 0.1em 3em rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+
+    img {
+        height: 10em;
+        width: 10em;
+    }
+
+    .Price {
+        color: $SoftRed;
+        font-size: 1.5em;
+    }
+    .Price::after {
+        content: " ₽";
+    }
+    .Description {
+        font-size: 1.25em;
+        width: 12em;
+    }
+
+    .MvToFavorites {
+        display: grid;
+        place-items: center;
+        font-size: 1em;
+        background-color: $SoftBlue;
+        width: auto;
+        border-radius: 0.6em;
+        color: white;
+        outline: none;
+        border: none;
+        height: 2em;
+    }
+    .MvToFavorites:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: 200ms;
+    }
+}
+
+.ItemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    .Quantity {
+        display: flex;
+        gap: 1em;    
+        align-items: center;
+        p {
+            font-size: 1em;
+            height: 1.1em;
+        }
+        select {
+            border: none;
+            opacity: 0.8;
+            font-size: 1em;
+            font-family: Roboto, sans-serif;
+        }
+    }
+}
+
+.Close {
+    p {
+        transform: scaleX(1.3);
+    }
+}
+
+.Close:hover {
+    cursor: pointer;
+}
+
+.CartItems {
+    align-items: flex-end;
+}
+.catalogCart {
+    justify-items: center;
+}
+
+@media (max-width: 1200px) {
+    .catalogCart {
+        grid-template-columns: auto !important;
+        justify-content: center;
+    }
+    .Item {
+        grid-template-columns: auto !important;
+        place-items: center;
+        width: max-content !important;
+    }
+    .Close {
+        position: absolute;
+        top: 10%;
+        left: 90%;
+    }
+}
